@@ -11,23 +11,35 @@ var currentElement = null;
 window.onload = main;
 
 function main() {
+  
+  disableLinksAndForms(documentiframe);
+  
+  // listening to all clicks in pages
+  documentiframe.onclick = function (event) {
+    let elementClicked = event.srcElement;
+    currentElement = new Element(event.srcElement);
+    // addAttributesToPanel(elementClicked); // currently disabled
+    // elementClicked.contentEditable="true"; // this line makes it editable by the browser, but its makes alot of trouble
+  };
+}
+
+function disableLinksAndForms(doc) {
+  
   // disable link behaviour
-  documentiframe.querySelectorAll("a").forEach(function(element) {
+  doc.querySelectorAll("a").forEach(function(element) {
     element.onclick = function () {
       element.preventDefault;
       return false;
     }
   });
-  // FIXME disable form submittion
   
-  // listening to all clicks in pages
-  documentiframe.onclick = function (event) {
-    // currentElement = new Element(event.srcElement);
-    // debugger;
-    var elementClicked = event.srcElement;
-    addAttributesToPanel(elementClicked);
-    elementClicked.contentEditable="true";
-  };
+  // disable form submittion
+  doc.querySelectorAll("form").forEach(function(element) {
+    element.onsubmit = function () {
+      return false;
+    }
+  });
+  
 }
 
 function addAttributesToPanel(element) {
