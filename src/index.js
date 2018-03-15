@@ -8,8 +8,8 @@ var documentiframe = elementiframe.contentDocument;
 var windowiframe   = elementiframe.contentWindow;
 
 // global variables
-window.panel          = new Panel("#lowerPanel .inner");
-window.currentElement = null; // this is the selected element
+window.panel          = new Panel("#lowerPanel");
+window.currentElement = new Element(document.body); // this is the selected element
 
 window.onload = main;
 
@@ -23,7 +23,6 @@ function main() {
     // first calls the destructor method
     if(currentElement != null)
       currentElement.destructor();
-      
     currentElement = new Element(event.srcElement);
   };
 }
