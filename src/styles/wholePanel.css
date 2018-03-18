@@ -1,0 +1,45 @@
+#lowerPanel {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  width: 100%;
+  height: 40%;
+  background: #eee;
+  border-top: 1px double #ccc;
+}
+#wholePanel > .left {
+    display: inline-block;
+    float: left;
+    width: 75%;
+}
+#wholePanel > .right {
+    display: inline-block;
+    float: right;
+    width: 25%;
+}
+#sidePanel {
+  background: #ccc;
+}
+
+
+
+
+/* upper panel - extract from here */
+#upperPanel {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 60%;
+}
+iframe#webPage {
+  border: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+/* hightlight - extract from here */
+.hightlight {
+  position: fixed;
+  border: 1px solid red;
+}
