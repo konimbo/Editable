@@ -5,7 +5,7 @@
   width: 100%;
   height: 40%;
   background: #eee;
-  border-top: 1px double #ccc;
+  border-top: 1px solid #ccc;
 }
 #wholePanel {
   height: 100%;
@@ -26,9 +26,6 @@
 #sidePanel {
   height: 100%;
   border-left: 1px dotted #000;
-}
-#mainPanel {
-  height: 100%;
 }
 
 

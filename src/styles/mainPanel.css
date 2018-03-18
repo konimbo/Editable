@@ -1,0 +1,5 @@
+#mainPanel {
+  padding: 10px;
+  overflow-y: auto;
+  height: 85%;
+}
