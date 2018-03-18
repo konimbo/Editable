@@ -7,18 +7,28 @@
   background: #eee;
   border-top: 1px double #ccc;
 }
+#wholePanel {
+  height: 100%;
+  width: 100%;
+}
 #wholePanel > .left {
     display: inline-block;
     float: left;
     width: 75%;
+    height: 100%;
 }
 #wholePanel > .right {
     display: inline-block;
     float: right;
     width: 25%;
+    height: 100%;
 }
 #sidePanel {
-  background: #ccc;
+  height: 100%;
+  border-left: 1px dotted #000;
+}
+#mainPanel {
+  height: 100%;
 }
 
 
