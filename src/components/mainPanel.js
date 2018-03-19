@@ -9,18 +9,11 @@ class MainPanel extends React.Component {
   constructor(props) {
     super(props);
     
-    // add event listener for click a node inside the iframe
-    documentiframe.onclick = (event) => {
-      this.setState({
-        selectedNode: event.srcElement
-      });
-      window.selectedNode = this.state.selectedNode;
-    };
-    
     this.state = {
-      selectedNode: null
+      selectedNode: this.props.selectedNode
     };
   }
+  
   getSelectedNodeAttributes() {
     // returns an object with the edit allowed attributes
     // or an empty object
@@ -40,7 +33,9 @@ class MainPanel extends React.Component {
         returnObject[currentAttribute.name] = currentAttribute.value
       }
       // add the text attribute
-      returnObject["Text"] = selectedNode.textContent;
+      if(selectedNode.childElementCount == 0 && this.getSelectedNodeTagName() != "IMG") {
+        returnObject["Text"] = selectedNode.textContent;
+      }
       
       // FIXME slices it with the allowed attributes for this kind of user
       // =====
@@ -58,24 +53,19 @@ class MainPanel extends React.Component {
     return this.state.selectedNode.tagName;
   }
   
-  getAttrsHTML() {
-    let attrs = this.getSelectedNodeAttributes();
-    let attrsHTML = Object.keys(attrs).map(key => 
-        <EditAttribute label={key} attribute={key} key={key} type="text" value={attrs[key]}></EditAttribute>
-    );
-    return attrsHTML;
-  }
-  
   render() {
     if(this.state.selectedNode == null) {
-      return "Please select a node first";
+      return Date() + "Please select a node first";
     } else {
+      let attrs = this.getSelectedNodeAttributes();
       return (
         <div id="mainPanel">
           <Panel bsStyle="info">
             <Panel.Heading>{this.getSelectedNodeTagName()} Tag Selected</Panel.Heading>
             <Panel.Body>
-              {this.getAttrsHTML()}
+            {Object.keys(attrs).map(currentKey => 
+                <EditAttribute selectedNode={this.state.selectedNode} label={currentKey} attribute={currentKey} key={currentKey+"["+attrs[currentKey]+"]"} type="text" value={attrs[currentKey]}></EditAttribute>
+            )}
             </Panel.Body>
           </Panel>
           

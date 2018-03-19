@@ -4,3 +4,6 @@ div#navigation {
   display: block;
   width: 100%;
 }
+#navigation .btn-group {
+    margin-right: 5px;
+}
