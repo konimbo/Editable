@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Glyphicon, Modal, ControlLabel, FormControl, FormGroup, ButtonGroup } from 'react-bootstrap';
+import '../styles/importExport.css';
 
 class ImportExport extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class ImportExport extends React.Component {
 
     this.handleHideImport = this.handleHideImport.bind(this);
     this.handleHideExport = this.handleHideExport.bind(this);
-    this.saveChanges = this.saveChanges.bind(this);
+    this.saveChanges      = this.saveChanges.bind(this);
     
     this.state = {
       showImport: false,

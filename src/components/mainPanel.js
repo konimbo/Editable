@@ -55,7 +55,7 @@ class MainPanel extends React.Component {
   
   render() {
     if(this.state.selectedNode == null) {
-      return Date() + "Please select a node first";
+      return "Please select a node first [" + Date() + "}";
     } else {
       let attrs = this.getSelectedNodeAttributes();
       return (
