@@ -11,9 +11,11 @@ class WholePanel extends React.Component {
     super(props);
     this.writeToDocument = this.writeToDocument.bind(this);
     this.disableLinksAndForms = this.disableLinksAndForms.bind(this);
+    // this.addDocumentClickEvent = this.addDocumentClickEvent.bind(this);
     
     this.state = {
       document: this.props.document,
+      form: this.props.form,
       selectedNode: null
     }
     
@@ -23,21 +25,23 @@ class WholePanel extends React.Component {
   
   writeToDocument(content) {
     // first clears the selected node
-    this.setState({ selectedNode: null });
+    if(this._mounted) {
+      this.setState({ selectedNode: null });
+    }
     // writes to the document
     let doc = this.state.document;
     doc.open();
     doc.write(content);
     doc.close();
     // when document ready attaches the behaviour
-    doc.onreadystatechange = () => {
-      console.log(Date() + doc.readyState);
-      if (doc.readyState === 'complete') {
+    // doc.onreadystatechange = () => {
+    //   console.log(Date() + doc.readyState);
+    //   if (doc.readyState === 'complete') {
         // actions to take when loading completed
         this.disableLinksAndForms();
         this.addDocumentClickEvent();
-      }
-    };
+      // }
+    // };
   }
   
   disableLinksAndForms() {
@@ -58,20 +62,41 @@ class WholePanel extends React.Component {
   }
   
   addDocumentClickEvent() {
-    // add event listener for click a node inside the iframe
-    this.state.document.onclick = (event) => {
-      this.setState({
-        selectedNode: event.srcElement
-      });
-    };
+    // add event listener for click a node inside the iframe FIXME this is the old version to be restored at branch master
+    // this.state.document.onclick = (event) => {
+    //   this.setState({
+    //     selectedNode: event.srcElement
+    //   });
+    // };
+    const selectorAttribute = "data-selector";
+    const $this             = this;
+    const doc               = $this.state.document;
+    this.state.form.querySelectorAll("input[" + selectorAttribute + "]").forEach(function (element) {
+      let currentElement = doc.querySelector(element.getAttribute(selectorAttribute));
+      if (currentElement != null) {
+        currentElement.onclick = () => {
+          $this.setState({
+            selectedNode: currentElement
+          });
+        }
+      }
+    });
+  }
+  
+  getSelectedNodeFormInputs() {
+    if(this.state.selectedNode == null) {
+      return [];
+    } else {
+      return this.state.form.querySelectorAll("input[data-selector='." + this.state.selectedNode.className + "']"); // returns all input with data-selector for the selectedNode
+    }
   }
   
   render() {
     return (
       <div id="wholePanel">
         <div className="left">
-          <Navigation document={this.state.document} writeToDocument={this.writeToDocument}></Navigation>
-          <MainPanel selectedNode={this.state.selectedNode} key={this.state.selectedNode}></MainPanel>
+          <Navigation document={this.state.document} form={this.state.form} writeToDocument={this.writeToDocument}></Navigation>
+          <MainPanel selectedNode={this.state.selectedNode} inputs={this.getSelectedNodeFormInputs()} key={this.state.selectedNode}></MainPanel>
         </div>
         <div className="right">
           <SidePanel></SidePanel>

@@ -27,7 +27,9 @@
   height: 100%;
   border-left: 1px dotted #000;
 }
-
+form.edit_user_file {
+  display: none !important;
+}
 
 
 

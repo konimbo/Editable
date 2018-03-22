@@ -5,9 +5,10 @@ import './styles/wholePanel.css';
 
 // iframe initialize
 let documentiframe = document.getElementById("webPage").contentDocument;
+let form           = document.querySelector("form.edit_user_file");
 
 ReactDOM.render(
-  <WholePanel document={documentiframe}>
+  <WholePanel document={documentiframe} form={form}>
   </WholePanel>,
   document.getElementById('lowerPanel')
 );

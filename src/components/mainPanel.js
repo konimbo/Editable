@@ -10,7 +10,8 @@ class MainPanel extends React.Component {
     super(props);
     
     this.state = {
-      selectedNode: this.props.selectedNode
+      selectedNode: this.props.selectedNode,
+      inputs: this.props.inputs
     };
   }
   
@@ -49,6 +50,30 @@ class MainPanel extends React.Component {
     }
   }
   
+  getAttrsFromInputs() {
+    // returns an array of the data objects
+    let returnArray = [];
+    this.state.inputs.forEach(input => {
+      let tmpObject = {};
+      tmpObject["value"] = input.getAttribute("value");
+      tmpObject["name"]  = input.getAttribute("name");
+      tmpObject["placeholder"] = input.getAttribute("placeholder");
+      tmpObject["type"] = input.getAttribute("type");
+      tmpObject["id"] = input.getAttribute("id");
+      if(tmpObject["name"].indexOf("src") > -1) {
+        tmpObject["type"] = "file";
+        tmpObject["attribute"] = "src";
+      } else if (tmpObject["name"].indexOf("alt") > -1) {
+        tmpObject["attribute"] = "alt";
+      } else {
+        tmpObject["attribute"] = "textContent";
+      }
+      
+      returnArray.push(tmpObject);
+    });
+    return returnArray;
+  }
+  
   getSelectedNodeTagName() {
     return this.state.selectedNode.tagName;
   }
@@ -57,14 +82,15 @@ class MainPanel extends React.Component {
     if(this.state.selectedNode == null) {
       return "Please select a node first [" + Date() + "]";
     } else {
-      let attrs = this.getSelectedNodeAttributes();
+      // let attrs = this.getSelectedNodeAttributes(); // Master branch usage
+      let attrs = this.getAttrsFromInputs();
       return (
         <div id="mainPanel">
           <Panel bsStyle="info">
             <Panel.Heading>{this.getSelectedNodeTagName()} Tag Selected</Panel.Heading>
             <Panel.Body>
-            {Object.keys(attrs).map(currentKey => 
-                <EditAttribute selectedNode={this.state.selectedNode} label={currentKey} attribute={currentKey} key={currentKey+"["+attrs[currentKey]+"]"} type="text" value={attrs[currentKey]}></EditAttribute>
+            {attrs.map(currentObj => 
+                <EditAttribute selectedNode={this.state.selectedNode} label={currentObj["name"]} attribute={currentObj["attribute"]} key={currentObj["id"]} id={currentObj["id"]} type={currentObj["type"]} value={currentObj["value"]} placeholder={currentObj["placeholder"]}></EditAttribute>
             )}
             </Panel.Body>
           </Panel>
