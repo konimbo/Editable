@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MainPanel from './mainPanel.js';
 import Navigation from './navigation.js';
 import SidePanel from './sidePanel.js';
-import html from '../../example.html'; // FIXME delete when adding DB
+// import html from '../../example.html'; // FIXME delete when adding DB
 
 class WholePanel extends React.Component {
   
@@ -19,20 +19,20 @@ class WholePanel extends React.Component {
       selectedNode: null
     }
     
-    this.writeToDocument(html);
+    this.writeToDocument();
     
   }
   
-  writeToDocument(content) {
+  writeToDocument() {
     // first clears the selected node
     if(this._mounted) {
       this.setState({ selectedNode: null });
     }
     // writes to the document
-    let doc = this.state.document;
-    doc.open();
-    doc.write(content);
-    doc.close();
+    // let doc = this.state.document;
+    // doc.open();
+    // doc.write(content);
+    // doc.close();
     // when document ready attaches the behaviour
     // doc.onreadystatechange = () => {
     //   console.log(Date() + doc.readyState);
