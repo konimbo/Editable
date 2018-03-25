@@ -4,12 +4,12 @@
 This project is intended for [Konimbo](http://www.konimbo.co.il) users in order to have a visual editing tool for their E-Commerce website.
 
 ## Table of Contents
-1. [Installation](#Installation)
-2. [Usage](#Usage)
-3. [Dependencies](#Dependencies)
-4. [Contributing](#Contributing)
-5. [Credits](#Credits)
-6. [License](#License)
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Dependencies](#dependencies)
+4. [Contributing](#contributing)
+5. [Credits](#credits)
+6. [License](#license)
 
 ## Installation
 * First, make sure you have [NodeJS](https://nodejs.org/en/) install on your computer. You can install it using a version package manager such as [NVM](https://github.com/creationix/nvm)
