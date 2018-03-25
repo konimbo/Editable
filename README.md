@@ -35,25 +35,19 @@ npm run watch
 ## Dependencies
 This project uses some dependencies we will explain a give a reference in this section
 
-### [Webpack](https://webpack.js.org/)
-![Webpack](https://konimboimages.s3.amazonaws.com/system/photos/241923/medium/5a6793e4a87aefc1bf3dcfdb6c6532a6.png?1521985291)
+ [![Webpack](https://konimboimages.s3.amazonaws.com/system/photos/241923/medium/5a6793e4a87aefc1bf3dcfdb6c6532a6.png?1521985291)](https://webpack.js.org/)
 
 We use Webpack in this project for compiling source files (the html, js and the css files used here) into 1 (or more, with chunks) bundle for use in our web page.
 
-### [Babel](https://babeljs.io/) 
-
-![Babel](https://konimboimages.s3.amazonaws.com/system/photos/241922/medium/d0cd3cb55bf14effad442cf91d279bac.png?1521985198)
+[![Babel](https://konimboimages.s3.amazonaws.com/system/photos/241922/medium/d0cd3cb55bf14effad442cf91d279bac.png?1521985198)](https://babeljs.io/) 
 
 We use Babel Compiler in this project in order to compile ES6 (EcmaScript2015) into pure js code that is cross-browser compatible.
 
-### [React](https://reactjs.org/)
-![React](https://konimboimages.s3.amazonaws.com/system/photos/241924/medium/baf0141dd258cd19cad6a1c93ffc7080.png?1521985300
-)
+[![React](https://konimboimages.s3.amazonaws.com/system/photos/241924/medium/baf0141dd258cd19cad6a1c93ffc7080.png?1521985300)](https://reactjs.org/)
 
 We use React and React-DOM in this project in order to write HTML over JS and have a modular components structure.
 
-### [Bootstrap](https://getbootstrap.com/)
-![Bootstrap](https://konimboimages.s3.amazonaws.com/system/photos/241925/medium/49a983d7351ba1f2f42f40f5ac5532a6.jpeg?1521985346)
+[![Bootstrap](https://konimboimages.s3.amazonaws.com/system/photos/241925/medium/49a983d7351ba1f2f42f40f5ac5532a6.jpeg?1521985346)](https://getbootstrap.com/)
 
 We use [React-Bootstrap](https://react-bootstrap.github.io/) which is a library that allows me to use bootstrap functionality with pre-built react components.
 
