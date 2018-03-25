@@ -20,8 +20,8 @@ class Navigation extends React.Component {
   }
   
   handleSave() {
-    // this.state.form.submit();
-    this.submitAjaxForm();
+    this.state.form.submit();
+    // this.submitAjaxForm();
   }
   
   submitAjaxForm() {

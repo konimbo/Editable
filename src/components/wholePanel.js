@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MainPanel from './mainPanel.js';
 import Navigation from './navigation.js';
 import SidePanel from './sidePanel.js';
-import html from '../../example.html'; // FIXME delete when adding DB
+// import html from '../../example.html'; // FIXME delete when adding DB
 
 class WholePanel extends React.Component {
   
@@ -18,30 +18,29 @@ class WholePanel extends React.Component {
       form: this.props.form,
       selectedNode: null
     }
-    
-    this.writeToDocument(html);
+    this.writeToDocument();
     
   }
   
-  writeToDocument(content) {
+  writeToDocument() {
     // first clears the selected node
     if(this._mounted) {
       this.setState({ selectedNode: null });
     }
     // writes to the document
     let doc = this.state.document;
-    doc.open();
-    doc.write(content);
-    doc.close();
+    // doc.open();
+    // doc.write(content);
+    // doc.close();
     // when document ready attaches the behaviour
-    // doc.onreadystatechange = () => {
-    //   console.log(Date() + doc.readyState);
-    //   if (doc.readyState === 'complete') {
+    doc.onreadystatechange = () => {
+      console.log(Date() + doc.readyState);
+      if (doc.readyState === 'complete') {
         // actions to take when loading completed
         this.disableLinksAndForms();
         this.addDocumentClickEvent();
-      // }
-    // };
+      }
+    };
   }
   
   disableLinksAndForms() {
@@ -59,6 +58,15 @@ class WholePanel extends React.Component {
         return false;
       }
     });
+  }
+  
+  selectedNodeUniqueIdentifier() {
+    let node = this.state.selectedNode;
+    if(node == null) {
+      return null;
+    } else {
+      return this.state.selectedNode.className;
+    }
   }
   
   addDocumentClickEvent() {
@@ -96,7 +104,7 @@ class WholePanel extends React.Component {
       <div id="wholePanel">
         <div className="left">
           <Navigation document={this.state.document} form={this.state.form} writeToDocument={this.writeToDocument}></Navigation>
-          <MainPanel selectedNode={this.state.selectedNode} inputs={this.getSelectedNodeFormInputs()} key={this.state.selectedNode}></MainPanel>
+          <MainPanel selectedNode={this.state.selectedNode} inputs={this.getSelectedNodeFormInputs()} key={this.selectedNodeUniqueIdentifier()}></MainPanel>
         </div>
         <div className="right">
           <SidePanel></SidePanel>
