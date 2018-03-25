@@ -13,7 +13,7 @@ module.exports = {
         test: /\.html$/,
         use: [ "html-loader" ]
       }, {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
