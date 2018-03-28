@@ -55,6 +55,66 @@ We use [React-Bootstrap](https://react-bootstrap.github.io/) which is a library 
 
 ## Contributing
 FIXME
+
+## Testing
+#### [An Overview of JavaScript Testing in 2018](https://medium.com/welldone-software/an-overview-of-javascript-testing-in-2018-f68950900bc3) (Great and informative article)
+
+In this project we are using:
+#### [Mocha](https://mochajs.org/)
+Mocha is a framework for writing and running Unit Tests ([what is unit tests?](https://stackoverflow.com/questions/652292/what-is-unit-testing-and-how-do-you-do-it))
+```javascript
+describe('User', function() {
+  describe('#save()', function() {
+    it('should save without error', function(done) {
+      var user = new User('Luna');
+      user.save(function(err) {
+        if (err) done(err);
+        else done();
+      });
+    });
+  });
+});
+```
+#### [Chai](http://www.chaijs.com/)
+Chai is an assertation library for writing tests in any framework, it has 3 main methods
+
+* Should
+
+```javascript
+chai.should();
+
+foo.should.be.a('string');
+foo.should.equal('bar');
+foo.should.have.lengthOf(3);
+tea.should.have.property('flavors')
+  .with.lengthOf(3);
+```
+
+* Expect
+
+```javascript
+var expect = chai.expect;
+
+expect(foo).to.be.a('string');
+expect(foo).to.equal('bar');
+expect(foo).to.have.lengthOf(3);
+expect(tea).to.have.property('flavors')
+  .with.lengthOf(3);
+```
+
+* Assert
+
+```javascript
+var assert = chai.assert;
+
+assert.typeOf(foo, 'string');
+assert.equal(foo, 'bar');
+assert.lengthOf(foo, 3)
+assert.property(tea, 'flavors');
+assert.lengthOf(tea.flavors, 3);
+```
+
+
 * ### build a new component
 * ### write with TDD
 * ### how to add a dependency
