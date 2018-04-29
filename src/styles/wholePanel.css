@@ -1,3 +1,6 @@
+#wholePanel[data-ready=false] {
+  opacity: 0.2;
+}
 #lowerPanel {
   position: fixed;
   bottom: 0px;

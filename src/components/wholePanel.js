@@ -9,55 +9,51 @@ class WholePanel extends React.Component {
   
   constructor(props) {
     super(props);
-    this.writeToDocument = this.writeToDocument.bind(this);
-    this.disableLinksAndForms = this.disableLinksAndForms.bind(this);
-    // this.addDocumentClickEvent = this.addDocumentClickEvent.bind(this);
-    
     this.state = {
-      document: this.props.document,
+      ready: false,
+      iframe: this.props.iframe,
+      document: this.props.iframe.contentDocument,
       form: this.props.form,
-      selectedNode: null
+      selectedNode: null,
+      inputs: []
     }
-    this.writeToDocument();
+    this.state.iframe.onload    = this.iframeLoadedHandler.bind(this);
+    this.state.document.onclick = this.iframeClickHandler.bind(this);
+  }
+  iframeLoadedHandler() {
+    this.setState({
+      ready: true
+    });
+  }
+  iframeClickHandler(event) {
+    event.preventDefault(); // disable any other bahviour
+    let attribute = 'data-selector';
+    let element   = event.target;
+    let inputs = this.searchElementInForm(element);
+    debugger;
+    if(inputs.length > 0) {
+      this.setState({
+        selectedNode: element,
+        inputs: inputs
+      });
+    }
     
+    return false; // for forms submittions and etc...
   }
-  
-  writeToDocument() {
-    // first clears the selected node
-    if(this._mounted) {
-      this.setState({ selectedNode: null });
-    }
-    // writes to the document
-    let doc = this.state.document;
-    // doc.open();
-    // doc.write(content);
-    // doc.close();
-    // when document ready attaches the behaviour
-    doc.onreadystatechange = () => {
-      console.log(Date() + doc.readyState);
-      if (doc.readyState === 'complete') {
-        // actions to take when loading completed
-        this.disableLinksAndForms();
-        this.addDocumentClickEvent();
-      }
-    };
-  }
-  
-  disableLinksAndForms() {
-    let doc = this.state.document;
-    // disable link behaviour
-    doc.querySelectorAll("a").forEach(function(element) {
-      element.onclick = function () {
-        element.preventDefault;
-        return false;
+  searchElementInForm(el){
+    const selectorAttribute = "data-selector";
+    const doc               = this.state.document;
+    const form              = this.state.form;
+    let   inputs            = [];
+    
+    form.querySelectorAll("input[" + selectorAttribute + "]").forEach((currentInput) => {
+      let currentElement = doc.querySelector(currentInput.getAttribute(selectorAttribute));
+      if (currentElement === el) {
+        inputs.push(currentInput);
       }
     });
-    // disable form submittion
-    doc.querySelectorAll("form").forEach(function(element) {
-      element.onsubmit = function () {
-        return false;
-      }
-    });
+    
+    return inputs;
   }
   
   selectedNodeUniqueIdentifier() {
@@ -65,46 +61,16 @@ class WholePanel extends React.Component {
     if(node == null) {
       return null;
     } else {
-      return this.state.selectedNode.className;
-    }
-  }
-  
-  addDocumentClickEvent() {
-    // add event listener for click a node inside the iframe FIXME this is the old version to be restored at branch master
-    // this.state.document.onclick = (event) => {
-    //   this.setState({
-    //     selectedNode: event.srcElement
-    //   });
-    // };
-    const selectorAttribute = "data-selector";
-    const $this             = this;
-    const doc               = $this.state.document;
-    this.state.form.querySelectorAll("input[" + selectorAttribute + "]").forEach(function (element) {
-      let currentElement = doc.querySelector(element.getAttribute(selectorAttribute));
-      if (currentElement != null) {
-        currentElement.onclick = () => {
-          $this.setState({
-            selectedNode: currentElement
-          });
-        }
-      }
-    });
-  }
-  
-  getSelectedNodeFormInputs() {
-    if(this.state.selectedNode == null) {
-      return [];
-    } else {
-      return this.state.form.querySelectorAll("input[data-selector='." + this.state.selectedNode.className + "']"); // returns all input with data-selector for the selectedNode
+      return this.state.selectedNode.className; // FIXME - will work only with launchpad
     }
   }
   
   render() {
     return (
-      <div id="wholePanel">
+      <div id="wholePanel" data-ready={this.state.ready}>
         <div className="left">
-          <Navigation document={this.state.document} form={this.state.form} writeToDocument={this.writeToDocument}></Navigation>
-          <MainPanel selectedNode={this.state.selectedNode} inputs={this.getSelectedNodeFormInputs()} key={this.selectedNodeUniqueIdentifier()}></MainPanel>
+          <Navigation document={this.state.document} form={this.state.form}></Navigation>
+          <MainPanel selectedNode={this.state.selectedNode} inputs={this.state.inputs} key={this.selectedNodeUniqueIdentifier()}></MainPanel>
         </div>
         <div className="right">
           <SidePanel></SidePanel>

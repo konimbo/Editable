@@ -14,8 +14,7 @@ class Navigation extends React.Component {
     
     this.state = {
       document: this.props.document,
-      form: this.props.form,
-      writeToDocument: this.props.writeToDocument,
+      form: this.props.form
     }
   }
   

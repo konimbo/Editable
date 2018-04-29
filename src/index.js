@@ -4,11 +4,11 @@ import WholePanel from './components/wholePanel.js'
 import './styles/wholePanel.css';
 
 // iframe initialize
-let documentiframe = document.getElementById("webPage").contentDocument;
+let iframe         = document.getElementById("webPage")
 let form           = document.querySelector("form.edit_user_file");
 
 ReactDOM.render(
-  <WholePanel document={documentiframe} form={form}>
+  <WholePanel iframe={iframe} form={form}>
   </WholePanel>,
   document.getElementById('lowerPanel')
 );
